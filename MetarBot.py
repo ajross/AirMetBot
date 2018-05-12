@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import tweepy
 from config import *
-from weather import getWeather
+from Weather import Weather
 
 auth = tweepy.OAuthHandler(TW_CONSUMER_KEY, TW_CONSUMER_SECRET)
 auth.set_access_token(TW_ACCESS_TOKEN, TW_ACCESS_SECRET)
@@ -12,6 +12,8 @@ latestId = 1
 #api.update_status("Hello World!")
 
 results = api.mentions_timeline(latestId)
+
+w = Weather()
 
 results = [r for r in api.mentions_timeline(latestId) if len(r.entities['hashtags']) > 0]
 
@@ -24,7 +26,7 @@ for r in results:
     weatherResults = []
 
     for c in possibleCodes:
-        weather = getWeather(c['text'])
+        weather = w.getMetar(c['text'])
         if(weather):
             weatherResults.append(weather)
 
