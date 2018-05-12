@@ -7,3 +7,4 @@ airmetbot = AirMetBot()
 
 if __name__ == "__main__":
     airmetbot.run()
+    application.run()
