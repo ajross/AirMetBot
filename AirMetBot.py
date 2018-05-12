@@ -1,11 +1,15 @@
 import time
 import sys
+import threading
 from Weather import Weather
 from Tweeter import Tweeter
 
-class AirMetBot:
+class AirMetBot (threading.Thread):
     __w = Weather()
     __t = Tweeter()
+
+    def __init__(self):
+        threading.Thread.__init__(self)
 
     def run(self):
         while(True):

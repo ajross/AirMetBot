@@ -7,6 +7,8 @@ application = Flask(__name__)
 airmetbot = AirMetBot()
 
 if __name__ == "__main__":
-    print("Starting", file=sys.stderr)
-    airmetbot.run()
+    print("Starting app", file=sys.stderr)
+    airmetbot.start()
+    print("Starting flask", file=sys.stderr)
     application.run()
+
