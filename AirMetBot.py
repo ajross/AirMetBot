@@ -1,32 +1,33 @@
-#!/usr/bin/env python
-
+import time
 from Weather import Weather
 from Tweeter import Tweeter
 
+class AirMetBot:
+    __w = Weather()
+    __t = Tweeter()
 
-w = Weather()
-t = Tweeter()
+    def run(self):
+        while(True):
+            results = self.__t.getResults()
 
-results = t.getResults()
+            for r in results:
+                msg = username = "@" + r.user + "\n"
 
-for r in results:
-    msg = username = "@" + r.user + "\n"
+                weatherResults = []
 
-    weatherResults = []
+                for c in r.hashtags:
+                    weather = self.__w.getMetar(c['text'])
+                    if(weather):
+                        weatherResults.append(weather)
 
-    charsUsed = len(msg)
+                while(len(weatherResults) > 0):
+                    if(len(msg) + len(weatherResults[0]) > 240):
+                        self.__t.sendTweet(msg)
+                        msg = username
+                    msg += weatherResults.pop() + "\n"
 
-    for c in r.hashtags:
-        weather = w.getMetar(c['text'])
-        if(weather):
-            weatherResults.append(weather)
+                self.__t.sendTweet(msg)
 
-    while(len(weatherResults) > 0):
-        if(len(msg) + len(weatherResults[0]) > 240):
-            t.sendTweet(msg)
-            msg = username
-        msg += weatherResults.pop() + "\n"
-
-    t.sendTweet(msg)
+            time.sleep(30)
 
 

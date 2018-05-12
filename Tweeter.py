@@ -16,6 +16,9 @@ class Tweeter:
         results = []
 
         for r in self.__api.mentions_timeline(self.__latestId):
+            if(r.id > self.__latestId):
+                self.__latestId = r.id
+
             if(len(r.entities['hashtags']) > 0):
                 t = TweetResult(r.id, r.author.screen_name, r.entities['hashtags'])
                 results.append(t)
@@ -23,5 +26,4 @@ class Tweeter:
         return results
 
     def sendTweet(self, msg):
-        print(msg)
-        # api.update_status(msg)
+        self.__api.update_status(msg)
