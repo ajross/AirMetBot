@@ -1,4 +1,5 @@
 import time
+import sys
 from Weather import Weather
 from Tweeter import Tweeter
 
@@ -26,8 +27,9 @@ class AirMetBot:
                         msg = username
                     msg += weatherResults.pop() + "\n"
 
-                self.__t.sendTweet(msg)
+                self.__t.sendTweet(msg, r.id)
 
             time.sleep(30)
 
+            print("looping", file=sys.stderr)
 

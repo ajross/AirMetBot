@@ -17,7 +17,7 @@ class Tweeter:
         results = []
 
         for r in self.__api.mentions_timeline(self.__latestId):
-            if(r.id > self.__latestId):
+            if (r.id > self.__latestId):
                 self.__latestId = r.id
 
             if(len(r.entities['hashtags']) > 0):
@@ -26,8 +26,8 @@ class Tweeter:
 
         return results
 
-    def sendTweet(self, msg):
+    def sendTweet(self, msg, id):
         try:
-            self.__api.update_status(msg)
+            self.__api.update_status(msg, id)
         except TweepError as e:
             print(e.response.text)
