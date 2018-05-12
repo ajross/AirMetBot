@@ -1,4 +1,5 @@
 import tweepy
+from tweepy import TweepError
 from config import *
 from TweetResult import TweetResult
 
@@ -26,4 +27,7 @@ class Tweeter:
         return results
 
     def sendTweet(self, msg):
-        self.__api.update_status(msg)
+        try:
+            self.__api.update_status(msg)
+        except TweepError as e:
+            print(e.response.text)
